@@ -1,7 +1,7 @@
-package sesson9.view;
+package session9.view;
 
-import sesson9.controller.LoginController;
-import sesson9.entity.Users;
+import session9.controller.LoginController;
+import session9.entity.Users;
 
 import java.sql.SQLException;
 import java.util.Scanner;

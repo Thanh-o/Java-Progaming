@@ -1,4 +1,4 @@
-package sesson9.entity;
+package session9.entity;
 
 public class Customers {
     private int customer_id;

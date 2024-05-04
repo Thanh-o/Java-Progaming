@@ -1,7 +1,7 @@
-package sesson9.controller;
+package session9.controller;
 
-import sesson9.entity.Users;
-import sesson9.model.LoginDaoImpl;
+import session9.entity.Users;
+import session9.model.LoginDaoImpl;
 
 import java.sql.SQLException;
 

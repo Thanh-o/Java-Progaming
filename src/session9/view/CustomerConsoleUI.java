@@ -1,7 +1,7 @@
-package sesson9.view;
+package session9.view;
 
-import sesson9.controller.CustomerController;
-import sesson9.entity.Customers;
+import session9.controller.CustomerController;
+import session9.entity.Customers;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -82,6 +82,8 @@ public class CustomerConsoleUI {
     }
 
     private void addNewCustomer() {
+        System.out.println("Enter id: ");
+        int customerId = Integer.parseInt(scanner.nextLine());
         System.out.print("Enter first name: ");
         String firstName = scanner.nextLine();
         System.out.print("Enter last name: ");

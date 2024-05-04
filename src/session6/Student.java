@@ -1,4 +1,4 @@
-package sesson6;
+package session6;
 
 public class Student {
     int id;

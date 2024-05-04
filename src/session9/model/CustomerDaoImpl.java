@@ -1,6 +1,6 @@
-package sesson9.model;
+package session9.model;
 
-import sesson9.entity.Customers;
+import session9.entity.Customers;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -19,18 +19,19 @@ public class CustomerDaoImpl implements CustomerDAO {
 
     public CustomerDaoImpl() throws SQLException {
     }
-
+    private final String SQL_ADD_CUSTOMER = "insert into customers values(?,?,?,?)";
+    private final String SQL_FIND_CUSTOMER_BY_ID = "select * from customers where customer_id = ?";
+    private final String SQL_GET_ALL_CUSTOMER = "SELECT * FROM customers";
+    private final String SQL_DELETE_CUSTOMER = "delete from customers where customer_id = ?";
+    private final String SQL_EDIT_CUSTOMER = "update customers where customer_id = ?";
     @Override
     public ArrayList<Customers> getAllCustomer(Customers customer) throws SQLException {
         ArrayList<Customers> customerList = new ArrayList<>();
-        String query = "SELECT * FROM customers WHERE first_name LIKE ? AND last_name LIKE ? AND email LIKE ?";
-        pstm = conn.prepareStatement(query);
-        pstm.setString(1,   customer.getFirst_name() );
-        pstm.setString(2,   customer.getLast_name());
-        pstm.setString(3,   customer.getEmail());
+        pstm = conn.prepareStatement(SQL_GET_ALL_CUSTOMER);
         ResultSet rs = pstm.executeQuery();
 
         while (rs.next()) {
+            customer.setCustomer_id(rs.getInt("customer_id"));
             customer.setFirst_name(rs.getString("first_name"));
             customer.setLast_name(rs.getString("last_name"));
             customer.setEmail(rs.getString("email"));
@@ -41,8 +42,7 @@ public class CustomerDaoImpl implements CustomerDAO {
 
     @Override
     public Customers findCustomerById(int id,Customers customer) throws SQLException {
-        String query = "SELECT * FROM customers WHERE id = ?";
-        pstm = conn.prepareStatement(query);
+        pstm = conn.prepareStatement(SQL_FIND_CUSTOMER_BY_ID);
         pstm.setInt(1, id);
         ResultSet rs = pstm.executeQuery();
 
@@ -56,18 +56,19 @@ public class CustomerDaoImpl implements CustomerDAO {
     }
     @Override
     public void addCustomer(Customers customer) throws SQLException {
-        String query = "INSERT INTO customers (first_name, last_name, email) VALUES (?, ?, ?)";
-        pstm = conn.prepareStatement(query);
-        pstm.setString(1, customer.getFirst_name());
-        pstm.setString(2, customer.getLast_name());
-        pstm.setString(3, customer.getEmail());
+        pstm = conn.prepareStatement(SQL_ADD_CUSTOMER);
+        pstm.setString(1, customer.getEmail());
+        pstm.setInt(2, customer.getCustomer_id());
+        pstm.setString(3, customer.getFirst_name());
+        pstm.setString(4, customer.getLast_name());
+
         pstm.executeUpdate();
     }
 
+
     @Override
     public void deleteCustomer(int id) throws SQLException {
-        String query = "DELETE FROM customers WHERE id = ?";
-        pstm = conn.prepareStatement(query);
+        pstm = conn.prepareStatement(SQL_DELETE_CUSTOMER);
         pstm.setInt(1, id);
         pstm.executeUpdate();
     }
@@ -75,8 +76,7 @@ public class CustomerDaoImpl implements CustomerDAO {
 
     @Override
     public void editCustomer(int id, Customers customer) throws SQLException {
-        String query = "UPDATE customers SET first_name = ?, last_name = ?, email = ? WHERE id = ?";
-        pstm = conn.prepareStatement(query);
+        pstm = conn.prepareStatement(SQL_EDIT_CUSTOMER);
         pstm.setString(1, customer.getFirst_name());
         pstm.setString(2, customer.getLast_name());
         pstm.setString(3, customer.getEmail());

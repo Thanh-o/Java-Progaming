@@ -1,4 +1,4 @@
-package sesson9.model;
+package session9.model;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

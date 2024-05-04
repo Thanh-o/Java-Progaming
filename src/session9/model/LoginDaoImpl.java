@@ -1,6 +1,6 @@
-package sesson9.model;
+package session9.model;
 
-import sesson9.entity.Users;
+import session9.entity.Users;
 
 import java.sql.*;
 

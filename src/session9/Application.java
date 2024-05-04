@@ -1,13 +1,8 @@
-package sesson9;
+package session9;
 
-import sesson9.entity.Customers;
-import sesson9.model.CustomerDAO;
-import sesson9.model.CustomerDaoImpl;
-import sesson9.view.CustomerConsoleUI;
-import sesson9.view.LoginConsoleUI;
+import session9.view.CustomerConsoleUI;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 public class Application {
     public static void main(String[] args) throws SQLException {

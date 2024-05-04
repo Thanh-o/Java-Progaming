@@ -1,8 +1,7 @@
-package sesson9.controller;
+package session9.controller;
 
-import sesson9.entity.Customers;
-import sesson9.model.CustomerDAO;
-import sesson9.model.CustomerDaoImpl;
+import session9.entity.Customers;
+import session9.model.CustomerDaoImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
