@@ -1,0 +1,10 @@
+create database java2practicaltest
+go
+use java2practicaltest
+
+create table contact(
+contact_id int primary key,
+name varchar(255) not null,
+company varchar(255) not null,
+email varchar(255) not null,
+phone int)

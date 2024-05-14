@@ -1,6 +1,6 @@
 package session10.entity;
 
-public class Product {
+public class Product extends Entity<Object> {
     private int productId;
     private String productName;
     private String description;

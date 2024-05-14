@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import static productManager.view.ConsoleUI.updateProduct;
+
 public class ProductConsoleUI {
     //Step1:Call controller
     ProductController productController = new ProductController();
@@ -47,6 +49,7 @@ public class ProductConsoleUI {
         Product product = new Product(prod_id,name,product_desc,price);
         productController.createProductController(product);
     }
+    public void updateProduct()throws SQLException{}
 
     public void start() throws SQLException{
         while (true){
@@ -55,7 +58,7 @@ public class ProductConsoleUI {
                 case 0:System.exit(0);break;
                 case 1:getAllProductUI();break;
                 case 2:createProduct();break;
-                case 3:
+                case 3:updateProduct();break;
                 case 4:
                 default:throw new AssertionError()   ;
             }

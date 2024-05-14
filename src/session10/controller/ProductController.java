@@ -16,7 +16,15 @@ public class ProductController {
     public void createProductController(Product product)throws SQLException{
         productDaoImpl.createProduct(product);
     }
-
+    public void updateProductController(Product product)throws SQLException{
+        productDaoImpl.updateProduct(product);
+    }
+    public void deleteProductController(int Proid)throws SQLException{
+        productDaoImpl.deleteProduct(Proid);
+    }
+    public void findByName(String name) throws SQLException{
+        productDaoImpl.findByName(name);
+    }
 
 
 }
