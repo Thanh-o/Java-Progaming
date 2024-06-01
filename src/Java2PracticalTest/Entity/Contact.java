@@ -1,26 +1,26 @@
 package Java2PracticalTest.Entity;
 
 public class Contact {
-    public int contact_id;
-    String name;
-    public String company;
-    public String email;
-    public int phone;
+    private int id;
+    private String name;
+    private String company;
+    private String email;
+    private int phone;
 
-    public Contact(int contact_id, String name, String company, String email, int phone) {
-        this.contact_id = contact_id;
+    public Contact(String name, String company, String email, int phone) {
+        this.id = id;
         this.name = name;
         this.company = company;
         this.email = email;
         this.phone = phone;
     }
 
-    public int getContact_id() {
-        return contact_id;
+    public int getId() {
+        return id;
     }
 
-    public void setContact_id(int contact_id) {
-        this.contact_id = contact_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -58,7 +58,7 @@ public class Contact {
     @Override
     public String toString() {
         return "Contact{" +
-                "contact_id=" + contact_id +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", company='" + company + '\'' +
                 ", email='" + email + '\'' +

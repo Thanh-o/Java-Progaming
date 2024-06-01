@@ -1,11 +1,9 @@
 package session10.model;
 
-import session10.MySQLConnectionDB;
 import session10.entity.OrderDetail;
 
 import java.sql.*;
 import java.util.Date;
-import java.util.List;
 
 public class OrderManagement {
     private OrderDetail[] orderDetails;

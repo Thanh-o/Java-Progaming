@@ -3,15 +3,11 @@ package Java2PracticalTest.Model;
 
 import Java2PracticalTest.Entity.Contact;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.List;
 
-public abstract class ContactDAO {
-    abstract ArrayList<Contact> getAll(Contact contact) throws SQLException;
-
-    public abstract Contact findById(Contact contact) throws SQLException;
-
-    public abstract Contact findById(String name, Contact contact) throws SQLException;
-
-    public abstract void add(Contact contact) throws SQLException;
+public interface ContactDAO {
+    void addContact(Contact contact);
+    Contact findContactByName(String name);
+    List<Contact> getAllContacts();
 }
+

@@ -1,6 +1,6 @@
 package session10.entity;
 
-public class Entity<T> {
+public class Entity <T>{
     private T id;
 
     public T getId() {

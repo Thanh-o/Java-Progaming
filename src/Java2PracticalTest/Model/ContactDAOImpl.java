@@ -3,69 +3,59 @@ package Java2PracticalTest.Model;
 import Java2PracticalTest.Entity.Contact;
 import Java2PracticalTest.MySQLConnectionDB;
 
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.List;
 
-public abstract class ContactDAOImpl extends ContactDAO {
-    private static final Connection conn;
-
-    static {
-        try {
-            conn = MySQLConnectionDB.getMyConnection();
+public class ContactDAOImpl implements ContactDAO {
+    @Override
+    public void addContact(Contact contact) {
+        String sql = "INSERT INTO contacts (name, company, email, phone) VALUES (?, ?, ?, ?)";
+        try (Connection conn = MySQLConnectionDB.getMyConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, contact.getName());
+            pstmt.setString(2, contact.getCompany());
+            pstmt.setString(3, contact.getEmail());
+            pstmt.setInt(4, contact.getPhone());
+            pstmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    private PreparedStatement pstm = null;
-    public ContactDAOImpl() throws SQLException{}
 
-    private final String SQL_ADD = "insert into contact values(?,?,?,?,?)";
-    private final String SQL_FIND_BY_ID = "select * from contact where name = ?";
-    private final String SQL_GET_ALL = "SELECT * FROM contact";
 
     @Override
-    public ArrayList<Contact> getAll(Contact contact) throws SQLException {
-        ArrayList<Contact> List = new ArrayList<>();
-        pstm = conn.prepareStatement(SQL_GET_ALL);
-        ResultSet rs = pstm.executeQuery();
-
-        while (rs.next()) {
-            contact.setContact_id(rs.getInt("contact_id"));
-            contact.setName(rs.getString("name"));
-            contact.setCompany(rs.getString("company"));
-            contact.setEmail(rs.getString("email"));
-            contact.setPhone(rs.getInt("phone"));
-            List.add(contact);
-        }
-        return List;
-    }
-    @Override
-    public Contact findById(String name,Contact contact) throws SQLException {
-        pstm = conn.prepareStatement(SQL_FIND_BY_ID);
-        pstm.setString(1,name);
-        ResultSet rs = pstm.executeQuery();
-
-        if (rs.next()) {
-            contact.setCompany(rs.getString("company"));
-            contact.setEmail(rs.getString("email"));
-            contact.setPhone(rs.getInt("phone"));
-            return contact;
+    public Contact findContactByName(String name) {
+        String sql = "SELECT * FROM contacts WHERE name = ?";
+        try (Connection conn = MySQLConnectionDB.getMyConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                return new Contact(rs.getString("name"), rs.getString("company"),
+                        rs.getString("email"), rs.getInt("phone"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }
-    @Override
-    public void add(Contact contact) throws SQLException {
-        pstm = conn.prepareStatement(SQL_ADD);
-        pstm.setString(1, contact.getName());
-        pstm.setInt(4, contact.phone);
-        pstm.setString(3, contact.company);
-        pstm.setString(2, contact.getEmail());
 
-        pstm.executeUpdate();
+    @Override
+    public List<Contact> getAllContacts() {
+        List<Contact> contacts = new ArrayList<>();
+        String sql = "SELECT * FROM contacts";
+        try (Connection conn = MySQLConnectionDB.getMyConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                contacts.add(new Contact(rs.getString("name"), rs.getString("company"),
+                        rs.getString("email"), rs.getInt("phone")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return contacts;
     }
 }
